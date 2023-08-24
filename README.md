@@ -1,20 +1,25 @@
 # firebase-scrypt-python
 
+[![PyPi](https://img.shields.io/pypi/v/firebase-scrypt.svg)](https://pypi.python.org/pypi/firebase-scrypt/)
+[![PyPI - Status](https://img.shields.io/pypi/status/firebase-scrypt)](https://pypi.python.org/pypi/firebase-scrypt/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/firebase-scrypt.svg)](https://github.com/nhairs/firebase-scrypt-python)
+[![License](https://img.shields.io/github/license/nhairs/firebase-scrypt.svg)](https://github.com/nhairs/firebase-scrypt-python)
+
 Python implementation of Firebase's scrypt password hashing algorithm. Based on [https://github.com/firebase/scrypt](https://github.com/firebase/scrypt).
 
+This is a fork of [Jaakkol/firebase-scrypt-python](https://github.com/JaakkoL/firebase-scrypt-python) ([reasoning](https://github.com/JaakkoL/firebase-scrypt-python/issues/4)) to allow packaging for PyPI.
+
 ## Installation
-
-Creates virtual environment and installs requirements.
-
-```bash
-source ./init-project.sh
+### Install via pip
+```shell
+pip3 install firebase-scrypt
 ```
 
 ## Usage
 
 ```python
 
-import firebasescrypt
+import firebase_scrypt
 
 # Sample Password hash parameters from Firebase Console.
 salt_separator = "Bw=="
@@ -29,7 +34,7 @@ password_hash="lSrfV15cpx95/sZS2W9c9Kp6i/LVgQNDNC/qzrCnh1SAyZvqmZqAjTdn3aoItz+VH
 # User's plain text password
 password = "user1password"
 
-is_valid = firebasescrypt.verify_password(
+is_valid = firebase_scrypt.verify_password(
     password=password,
     known_hash=password_hash,
     salt=salt,
@@ -43,8 +48,22 @@ is_valid # True / False
 
 ```
 
-## Running tests
+## Bugs, Feature Requests etc
+TLDR: Please [submit an issue on github](https://github.com/nhairs/firebase-scrypt/issues).
 
-```bash
-pytest
-```
+In the case of bug reports, please help me help you by following best practices [1](https://marker.io/blog/write-bug-report/) [2](https://www.chiark.greenend.org.uk/~sgtatham/bugs.html).
+
+In the case of feature requests, please provide background to the problem you are trying to solve so to help find a solution that makes the most sense for the library as well as your usecase.
+
+## Development
+The only development dependencies are bash and docker. All actions are run within docker for ease of use. See `./dev.sh help` for commands. Typical commands are `format`, `lint`, `test`, `repl`, `build`.
+
+## Licence
+This project is licenced under the MIT Licence - see [`LICENCE`](https://github.com/nahirs/firebase-scrypt-python/blob/master/LICENCE).
+
+This project may include other open source licenced software - see [`NOTICE`](https://github.com/nhairs/firebase-scrypt-python/blob/master/NOTICE).
+
+
+## Authors
+Original implementation by [Jaakko Laurila](https://github.com/JaakkoL)
+PyPI packaing by Nicholas Hairs - [www.nicholashairs.com](https://www.nicholashairs.com).

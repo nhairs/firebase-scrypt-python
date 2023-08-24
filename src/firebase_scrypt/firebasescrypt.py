@@ -54,9 +54,9 @@ def encrypt(signer_key: bytes, derived_key: bytes) -> bytes:
 
     NOTE: We're only using first 32 bytes of the derived key to match
     expected key length.
-    
+
     Nonce is fixed and IV-vector is basically 16 null bytes (counter starting from 0).
-    
+
     See: https://pycryptodome.readthedocs.io/en/latest/src/faq.html#is-ctr-cipher-mode-compatible-with-java
     """
     key = derived_key[:32]
@@ -67,7 +67,7 @@ def encrypt(signer_key: bytes, derived_key: bytes) -> bytes:
     result = crypter.encrypt(signer_key)
 
     return result
-    
+
 
 def verify_password(
     password: str,

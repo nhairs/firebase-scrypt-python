@@ -1,7 +1,7 @@
 import base64
 import pytest
 
-from firebasescrypt import (
+from firebase_scrypt import (
     generate_derived_key,
     verify_password
 )
