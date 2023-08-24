@@ -5,9 +5,9 @@
 [![Python Versions](https://img.shields.io/pypi/pyversions/firebase-scrypt.svg)](https://github.com/nhairs/firebase-scrypt-python)
 [![License](https://img.shields.io/github/license/nhairs/firebase-scrypt.svg)](https://github.com/nhairs/firebase-scrypt-python)
 
-Python implementation of Firebase's scrypt password hashing algorithm. Based on [https://github.com/firebase/scrypt](https://github.com/firebase/scrypt).
+Python implementation of Firebase's scrypt password hashing algorithm. Based on [firebase/scrypt](https://github.com/firebase/scrypt).
 
-This is a fork of [Jaakkol/firebase-scrypt-python](https://github.com/JaakkoL/firebase-scrypt-python) ([reasoning](https://github.com/JaakkoL/firebase-scrypt-python/issues/4)) to allow packaging for PyPI.
+This is a fork of [Jaakkol/firebase-scrypt-python](https://github.com/JaakkoL/firebase-scrypt-python) to allow packaging for PyPI.
 
 ## Installation
 ### Install via pip
@@ -65,5 +65,5 @@ This project may include other open source licenced software - see [`NOTICE`](ht
 
 
 ## Authors
-Original implementation by [Jaakko Laurila](https://github.com/JaakkoL)
-PyPI packaing by Nicholas Hairs - [www.nicholashairs.com](https://www.nicholashairs.com).
+- Nicholas Hairs - [www.nicholashairs.com](https://www.nicholashairs.com)
+- [Jaakko Laurila](https://github.com/JaakkoL)
