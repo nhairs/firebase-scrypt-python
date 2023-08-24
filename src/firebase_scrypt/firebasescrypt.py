@@ -17,37 +17,56 @@ See: https://github.com/firebase/scrypt/issues/2#issuecomment-548203625
 
 4. Encode the result using base64 to finalize hash creation
 """
-
+### IMPORTS
+### ============================================================================
+## Standard Library
 import base64
 import hashlib
 import hmac
 
+# Union required until python 3.10
+from typing import Union
+
+## Installed
 from Crypto.Cipher import AES
 
+## Application
 
+
+### FUNCTIONS
+### ============================================================================
 def generate_derived_key(
-        password: str,
-        salt: str,
-        salt_separator: str,
-        rounds: int,
-        mem_cost: int
+    password: str,
+    salt: Union[str, bytes],
+    salt_separator: Union[str, bytes],
+    rounds: int,
+    mem_cost: int,
 ) -> bytes:
-    """Generates derived key from known parameters"""
-    n = 2 ** mem_cost
-    p = 1
-    user_salt: bytes = base64.b64decode(salt)
-    salt_separator: bytes = base64.b64decode(salt_separator)
-    password: bytes = bytes(password, 'utf-8')
+    """Generates derived key from known parameters
+
+    `password` is the user's password as a `utf-8` string.
+    `salt`, `salt_separator` can be passed in as either `bytes` or a `base64` encoded string.
+    """
+
+    n = 2**mem_cost  # pylint: disable=invalid-name
+    p = 1  # pylint: disable=invalid-name
+
+    if isinstance(salt, str):
+        salt = base64.b64decode(salt)
+
+    if isinstance(salt_separator, str):
+        salt_separator = base64.b64decode(salt_separator)
 
     derived_key = hashlib.scrypt(
-        password=password,
-        salt=user_salt + salt_separator,
+        password=bytes(password, "utf-8"),
+        salt=salt + salt_separator,
         n=n,
         r=rounds,
         p=p,
     )
 
     return derived_key
+
 
 def encrypt(signer_key: bytes, derived_key: bytes) -> bytes:
     """Encrypts signer key with derived key using AES256
@@ -60,30 +79,29 @@ def encrypt(signer_key: bytes, derived_key: bytes) -> bytes:
     See: https://pycryptodome.readthedocs.io/en/latest/src/faq.html#is-ctr-cipher-mode-compatible-with-java
     """
     key = derived_key[:32]
-    iv = b'\x00' * 16
-    nonce=b''
-    crypter = AES.new(key, AES.MODE_CTR, initial_value=iv, nonce=nonce)
-
-    result = crypter.encrypt(signer_key)
-
-    return result
+    iv = b"\x00" * 16  # pylint: disable=invalid-name
+    nonce = b""
+    cipher = AES.new(key, AES.MODE_CTR, initial_value=iv, nonce=nonce)
+    return cipher.encrypt(signer_key)
 
 
 def verify_password(
     password: str,
     known_hash: str,
-    salt: str,
-    salt_separator: str,
-    signer_key: str,
+    salt: Union[str, bytes],
+    salt_separator: Union[str, bytes],
+    signer_key: Union[str, bytes],
     rounds: int,
-    mem_cost: int
+    mem_cost: int,
 ) -> bool:
     """Verify if password matches known hash"""
     derived_key: bytes = generate_derived_key(password, salt, salt_separator, rounds, mem_cost)
-    signer_key: bytes = base64.b64decode(signer_key)
+
+    if isinstance(signer_key, str):
+        signer_key = base64.b64decode(signer_key)
 
     result = encrypt(signer_key, derived_key)
 
-    password_hash = base64.b64encode(result).decode('utf-8')
+    password_hash = base64.b64encode(result).decode("utf-8")
 
     return hmac.compare_digest(password_hash, known_hash)
