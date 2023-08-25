@@ -3,7 +3,7 @@
 [![PyPi](https://img.shields.io/pypi/v/firebase-scrypt.svg)](https://pypi.python.org/pypi/firebase-scrypt/)
 [![PyPI - Status](https://img.shields.io/pypi/status/firebase-scrypt)](https://pypi.python.org/pypi/firebase-scrypt/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/firebase-scrypt.svg)](https://github.com/nhairs/firebase-scrypt-python)
-[![License](https://img.shields.io/github/license/nhairs/firebase-scrypt.svg)](https://github.com/nhairs/firebase-scrypt-python)
+[![License](https://img.shields.io/github/license/nhairs/firebase-scrypt-python.svg)](https://github.com/nhairs/firebase-scrypt-python)
 
 Python implementation of Firebase's scrypt password hashing algorithm. Based on [firebase/scrypt](https://github.com/firebase/scrypt).
 
